@@ -1,4 +1,7 @@
 import axios from 'axios'
+import { useUserStore } from '@/stores/user';
+import router from '@/router';
+
 const request = axios.create({
     baseURL: 'http://localhost:8080',
     timeout: 10000,
@@ -7,6 +10,12 @@ const request = axios.create({
   // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么
+
+    config.headers.Authorization = useUserStore().token || ''
+    if(!useUserStore().token){
+      router.push('/login')
+    }
+
     return config;
   }, function (error) {
     // 对请求错误做些什么

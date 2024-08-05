@@ -2,6 +2,7 @@
 import {ref} from 'vue'
 import { userLogin,userRegister } from '../../api/user'
 import {useMessageStore} from '../../stores/message.js'
+import {useUserStore} from '../../stores/user.js'
 
 //遮罩层文本
 let maskText = ref('还没有注册吗？快去注册吧！')
@@ -47,6 +48,8 @@ let goTo = () => {
 const toLogin = async () => {
     const res = await userLogin(Loginform.value)
     console.log(res);
+    useUserStore().user = res.data.data
+    useUserStore().token = res.data.data.token
     useMessageStore().message(res.data)
 }
 
@@ -55,6 +58,10 @@ const toRegister = async () => {
     const res = await userRegister(Registerform.value)
     console.log(res);
     useMessageStore().message(res.data)
+    if(res.data.status == 0){
+        to.value = false
+        goTo()
+    }
 }
 </script>
 
