@@ -3,6 +3,7 @@ import {ref} from 'vue'
 import { userLogin,userRegister } from '../../api/user'
 import {useMessageStore} from '../../stores/message.js'
 import {useUserStore} from '../../stores/user.js'
+import router from '@/router'
 
 //遮罩层文本
 let maskText = ref('还没有注册吗？快去注册吧！')
@@ -51,6 +52,7 @@ const toLogin = async () => {
     useUserStore().user = res.data.data
     useUserStore().token = res.data.data.token
     useMessageStore().message(res.data)
+    router.push('/')
 }
 
 //注册
