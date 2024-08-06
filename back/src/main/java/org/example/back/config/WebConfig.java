@@ -1,12 +1,17 @@
 package org.example.back.config;
 
+import org.example.back.interceptor.LoginInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+    @Autowired
+    LoginInterceptor loginInterceptor;
+
     //全局跨域设置
     @Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -19,7 +24,9 @@ public class WebConfig implements WebMvcConfigurer {
 
     //注册拦截器
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**").addResourceLocations("/user/login","/user/register");
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(loginInterceptor)
+                .addPathPatterns("/**")
+                .excludePathPatterns("/user/login","/user/register");
     }
 }

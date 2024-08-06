@@ -25,4 +25,11 @@ public class R<T> {
         r.message = message;
         return r;
     }
+
+    public static <T> R<T> tokenError(int status,String message) {
+        R<T> r = new R<T>();
+        r.status = (Integer) status;
+        r.message = message;
+        return r;
+    }
 }
