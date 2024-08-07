@@ -27,9 +27,11 @@ request.interceptors.request.use(function (config) {
 request.interceptors.response.use(function (response) {
     // 2xx 范围内的状态码都会触发该函数。
     // 对响应数据做点什么
-    if(response.data.data.status == 404){
+    
+    if(response.data.status == 404){
       router.push("/login")
-      ElMessage.error(response.data.data.message)
+      ElMessage.error(response.data.message)
+      localStorage.clear()
     }
     
     return response;

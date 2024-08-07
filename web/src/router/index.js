@@ -17,15 +17,13 @@ const router = createRouter({
       component:LayoutPage,
       //导航前置守卫
       beforeEnter: (to, from , next) => {
-        console.log(to);
-        console.log(from);
-        
         if(!useUserStore().token){
           next('/login')
         }else{
           next()
         }
       },
+      redirect:'/user',
       children: [
         {path:'/notice',component:NoticePage},
         {path:'/record',component:RecordPage},

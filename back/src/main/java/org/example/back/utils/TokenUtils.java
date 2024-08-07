@@ -12,7 +12,7 @@ import java.util.Date;
 @Slf4j
 public class TokenUtils {
 
-    private final static int EXPIRE_TIME = 1; // token 过期时间，单位分钟
+    private final static int EXPIRE_TIME = 20; // token 过期时间，单位分钟
 
     //创建token
     public static String createToken(User user) {

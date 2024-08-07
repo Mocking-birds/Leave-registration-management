@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @RestController
 @Slf4j
@@ -21,7 +22,14 @@ public class NoticeController{
     //增
     @PostMapping("/add")
     public R addNotice(@RequestBody Notice notice){
-        notice.setTime(LocalDateTime.now());
+
+        // 获取当前日期和时间
+        LocalDateTime now = LocalDateTime.now();
+
+        // 定义日期时间格式
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        notice.setTime(now);
         noticeService.save(notice);
         return R.success(null,"添加成功");
     }
@@ -36,20 +44,35 @@ public class NoticeController{
     //改
     @PutMapping
     public R updateNotice(@RequestBody Notice notice){
+        // 获取当前日期和时间
+        LocalDateTime now = LocalDateTime.now();
+
+        // 定义日期时间格式
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        notice.setTime(now);
         noticeService.updateById(notice);
         return R.success(null,"修改成功");
     }
 
-    //查
+    //查(分页)
     @GetMapping("/get")
     public R getNotice(Integer pageNum, Integer pageSize){
         log.info("pageNum:{},pageSize:{}", pageNum, pageSize);
 
         Page page = new Page(pageNum, pageSize);
         LambdaQueryWrapper<Notice> queryWrapper = new LambdaQueryWrapper<Notice>()
-                .orderByAsc(Notice::getTime);
+                .orderByDesc(Notice::getTime);
 
         noticeService.page(page, queryWrapper);
         return R.success(page,"查询成功");
+    }
+
+    //查（id）
+    @GetMapping("/{id}")
+    public R getNotice(@PathVariable Integer id){
+        log.info("id:{}", id);
+        Notice notice = noticeService.getById(id);
+        return R.success(notice,"查询成功");
     }
 }

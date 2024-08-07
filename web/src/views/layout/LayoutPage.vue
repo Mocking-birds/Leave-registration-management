@@ -70,4 +70,8 @@ import { User,Postcard,Menu,Files,School } from '@element-plus/icons-vue'
     background: rgb(0, 97, 161);
 }
 
+.el-main{
+    height: calc(100vh - 60px);
+}
+
 </style>
