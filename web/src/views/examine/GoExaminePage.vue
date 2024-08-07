@@ -2,7 +2,6 @@
 import { ref } from 'vue'
 import { getGo, updateGo } from '@/api/go'
 import { ArrowDownBold } from '@element-plus/icons-vue'
-import dayjs from 'dayjs'
 
 //表格数据
 let tableData = ref()
