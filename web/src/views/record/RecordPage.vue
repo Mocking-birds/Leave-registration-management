@@ -76,5 +76,4 @@ const handleCommand = (command) => {
 </template>
 
 <style scoped>
-
 </style>

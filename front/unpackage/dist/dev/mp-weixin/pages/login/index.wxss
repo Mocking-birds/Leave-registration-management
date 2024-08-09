@@ -1,0 +1,27 @@
+
+.login.data-v-d08ef7d4{
+		height: 100vh;
+		background-color: #f5f5dc;
+}
+.title.data-v-d08ef7d4 {
+		text-align: center;
+		font-size: 18px;
+		font-weight: 900;
+		color: #32B9FF;
+		padding: 30px 5px;
+		padding-top: 60px;
+}
+	/* 深度选择器 */
+.data-v-d08ef7d4 .u-button--square{
+		width: 550rpx !important;
+		border-radius: 40rpx !important;
+}
+.data-v-d08ef7d4 .u-form-item{
+		width: 550rpx !important;
+}
+.data-v-d08ef7d4 .u-form{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+}

@@ -119,6 +119,7 @@ require("./uni_modules/uview-plus/libs/config/props/upload.js");
 require("./uni_modules/uview-plus/libs/config/zIndex.js");
 require("./uni_modules/uview-plus/libs/function/platform.js");
 if (!Math) {
+  "./pages/login/index.js";
   "./pages/home/index.js";
   "./pages/center/index.js";
   "./pages/user/index.js";

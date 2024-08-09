@@ -8,8 +8,7 @@
 
 	const tabbarStore = useTabbarStore()
 
-	let goto = (name, icon) => {
-		console.log(icon);
+	let goto = (name) => {
 		tabbarStore.changeTabbar(name)
 		uni.switchTab({
 			url: `/pages/${tabbarStore.tabbar}/index`

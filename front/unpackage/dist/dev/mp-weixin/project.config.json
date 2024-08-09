@@ -15,11 +15,12 @@
       "ignore": [],
       "disablePlugins": [],
       "outputPath": ""
-    }
+    },
+    "ignoreUploadUnusedFiles": false
   },
   "compileType": "miniprogram",
-  "libVersion": "3.3.5",
-  "appid": "touristappid",
+  "libVersion": "",
+  "appid": "wxc8de680677842e60",
   "projectname": "front",
   "condition": {},
   "editorSetting": {

@@ -15,8 +15,7 @@ const _sfc_main = {
   __name: "TabBar",
   setup(__props) {
     const tabbarStore = store_tabbar.useTabbarStore();
-    let goto = (name, icon) => {
-      console.log(icon);
+    let goto = (name) => {
       tabbarStore.changeTabbar(name);
       common_vendor.index.switchTab({
         url: `/pages/${tabbarStore.tabbar}/index`

@@ -51,6 +51,8 @@ public class UserController {
         User one = userService.getOne(queryWrapper);
         if (one != null) {
             return R.error("用户名已存在");
+        } else if (user.getPassword() == null) {
+            return R.error("密码不能为空");
         }
 
         userService.save(user);

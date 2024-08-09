@@ -3,5 +3,6 @@
   "projectname": "front",
   "setting": {
     "compileHotReLoad": true
-  }
+  },
+  "libVersion": "3.5.3"
 }

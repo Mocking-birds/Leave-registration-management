@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "",
+  "navigationBarBackgroundColor": "#f5f5dc",
+  "usingComponents": {
+    "up-toast": "../../uni_modules/uview-plus/components/u-toast/u-toast",
+    "up-input": "../../uni_modules/uview-plus/components/u-input/u-input",
+    "up-form-item": "../../uni_modules/uview-plus/components/u-form-item/u-form-item",
+    "up-button": "../../uni_modules/uview-plus/components/u-button/u-button",
+    "up-form": "../../uni_modules/uview-plus/components/u-form/u-form"
+  }
+}

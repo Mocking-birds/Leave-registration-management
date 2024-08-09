@@ -111,3 +111,4 @@ const colorGradient$1 = {
 };
 exports.colorGradient = colorGradient$1;
 exports.colorGradient$1 = colorGradient;
+exports.hexToRgb = hexToRgb;
