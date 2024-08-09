@@ -1,0 +1,1 @@
+<view class="home"> 首页 <up-button wx:if="{{a}}" u-s="{{['d']}}" u-i="7903d208-0" bind:__l="__l" u-p="{{a}}">213</up-button><tab-bar u-i="7903d208-1" bind:__l="__l"></tab-bar></view>

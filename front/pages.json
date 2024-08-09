@@ -1,0 +1,57 @@
+{
+	"easycom": {
+			"autoscan": true,
+			// 注意一定要放在custom里，否则无效，https://ask.dcloud.net.cn/question/131175
+			"custom": {
+				"^u--(.*)": "@/uni_modules/uview-plus/components/u-$1/u-$1.vue",
+				"^up-(.*)": "@/uni_modules/uview-plus/components/u-$1/u-$1.vue",
+		    "^u-([^-].*)": "@/uni_modules/uview-plus/components/u-$1/u-$1.vue"
+			}
+		},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/home/index",
+			"style": {
+				"navigationBarTitleText": "首页"
+			}
+		},
+		{
+			"path" : "pages/center/index",
+			"style" : 
+			{
+				"navigationBarTitleText" : "申请信息"
+			}
+		},
+		{
+			"path": "pages/user/index",
+			"style": {
+				"navigationBarTitleText": "个人中心"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"uniIdRouter": {},
+	"tabBar": {
+		"custom": true, //可以显示自定义组件
+		"list": [
+			{
+				"pagePath": "pages/center/index",
+				"text": "申请信息"
+			},
+			{
+				"pagePath": "pages/home/index",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/user/index",
+				"text": "个人中心"
+			}
+		]
+	}
+
+}

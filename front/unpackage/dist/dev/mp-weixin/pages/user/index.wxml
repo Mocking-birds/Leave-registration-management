@@ -1,0 +1,1 @@
+<view class="user"> 个人中心 <tab-bar u-i="47dd56e8-0" bind:__l="__l"></tab-bar></view>
