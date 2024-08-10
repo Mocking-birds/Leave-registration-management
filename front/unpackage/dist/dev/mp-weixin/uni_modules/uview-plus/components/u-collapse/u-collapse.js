@@ -1,8 +1,7 @@
 "use strict";
-const uni_modules_uviewPlus_components_uCellGroup_props = require("./props.js");
+const uni_modules_uviewPlus_components_uCollapse_props = require("./props.js");
 const uni_modules_uviewPlus_libs_mixin_mpMixin = require("../../libs/mixin/mpMixin.js");
 const uni_modules_uviewPlus_libs_mixin_mixin = require("../../libs/mixin/mixin.js");
-const uni_modules_uviewPlus_libs_function_index = require("../../libs/function/index.js");
 const common_vendor = require("../../../../common/vendor.js");
 require("../../libs/vue.js");
 require("../../libs/config/props.js");
@@ -96,14 +95,67 @@ require("../../libs/config/props/toolbar.js");
 require("../../libs/config/props/tooltip.js");
 require("../../libs/config/props/transition.js");
 require("../../libs/config/props/upload.js");
+require("../../libs/function/index.js");
 require("../../libs/function/test.js");
-require("../../libs/util/route.js");
 require("../../libs/function/digit.js");
+require("../../libs/util/route.js");
 const _sfc_main = {
-  name: "u-cell-group",
-  mixins: [uni_modules_uviewPlus_libs_mixin_mpMixin.mpMixin, uni_modules_uviewPlus_libs_mixin_mixin.mixin, uni_modules_uviewPlus_components_uCellGroup_props.props],
+  name: "u-collapse",
+  mixins: [uni_modules_uviewPlus_libs_mixin_mpMixin.mpMixin, uni_modules_uviewPlus_libs_mixin_mixin.mixin, uni_modules_uviewPlus_components_uCollapse_props.props],
+  watch: {
+    needInit() {
+      this.init();
+    },
+    // 当父组件需要子组件需要共享的参数发生了变化，手动通知子组件
+    parentData() {
+      if (this.children.length) {
+        this.children.map((child) => {
+          typeof child.updateParentData === "function" && child.updateParentData();
+        });
+      }
+    }
+  },
+  created() {
+    this.children = [];
+  },
+  computed: {
+    needInit() {
+      return [this.accordion, this.value];
+    }
+  },
+  emits: ["open", "close", "change"],
   methods: {
-    addStyle: uni_modules_uviewPlus_libs_function_index.addStyle
+    // 重新初始化一次内部的所有子元素
+    init() {
+      this.children.map((child) => {
+        child.init();
+      });
+    },
+    /**
+     * collapse-item被点击时触发，由collapse统一处理各子组件的状态
+     * @param {Object} target 被操作的面板的实例
+     */
+    onChange(target) {
+      let changeArr = [];
+      this.children.map((child, index) => {
+        if (this.accordion) {
+          child.expanded = child === target ? !target.expanded : false;
+          child.setContentAnimate();
+        } else {
+          if (child === target) {
+            child.expanded = !child.expanded;
+            child.setContentAnimate();
+          }
+        }
+        changeArr.push({
+          // 如果没有定义name属性，则默认返回组件的index索引
+          name: child.name || index,
+          status: child.expanded ? "open" : "close"
+        });
+      });
+      this.$emit("change", changeArr);
+      this.$emit(target.expanded ? "open" : "close", target.name);
+    }
   }
 };
 if (!Array) {
@@ -116,15 +168,8 @@ if (!Math) {
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return common_vendor.e({
-    a: _ctx.title
-  }, _ctx.title ? {
-    b: common_vendor.t(_ctx.title)
-  } : {}, {
-    c: _ctx.border
-  }, _ctx.border ? {} : {}, {
-    d: common_vendor.s($options.addStyle(_ctx.customStyle)),
-    e: common_vendor.n(_ctx.customClass)
-  });
+    a: _ctx.border
+  }, _ctx.border ? {} : {});
 }
-const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-014d39dc"], ["__file", "D:/Leave-registration-management/front/uni_modules/uview-plus/components/u-cell-group/u-cell-group.vue"]]);
+const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-90f85a74"], ["__file", "D:/Leave-registration-management/front/uni_modules/uview-plus/components/u-collapse/u-collapse.vue"]]);
 wx.createComponent(Component);

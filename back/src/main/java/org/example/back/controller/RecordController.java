@@ -37,8 +37,6 @@ public class RecordController {
     //查(分页)
     @GetMapping("/get")
     public R getRecord(Integer pageSize, Integer pageNum,String state) {
-        Go go = new Go();
-        Enter enter = new Enter();
 
         List<Go> list = goService.list();
         List<Enter> list1 = enterService.list();
@@ -95,6 +93,80 @@ public class RecordController {
         queryWrapper.like(Record::getState,state);
         queryWrapper.orderByDesc(Record::getTime);
         recordService.page(page, queryWrapper);
+
+        return R.success(page,"查询成功");
+
+    }
+
+    //查(通过username)
+    @GetMapping("/get/student")
+    public R getRecordByUni(Integer pageSize, Integer pageNum,String username) {
+
+        //获取出校申请的值（指定username）
+        LambdaQueryWrapper<Go> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Go::getUsername,username);
+        List<Go> list = goService.list(queryWrapper);
+
+        log.info("go list:{}",list);
+
+        //获取返校申请的值（指定username）
+        LambdaQueryWrapper<Enter> queryWrapper1 = new LambdaQueryWrapper<>();
+        queryWrapper1.eq(Enter::getUsername,username);
+        List<Enter> list1 = enterService.list(queryWrapper1);
+
+        log.info("enter list:{}",list1);
+
+        //获取当前Record（出入校申请记录）
+        List<Record> recordsAll = recordService.list();
+        recordsAll.stream().map((item)->{
+            return item;
+        }).collect(Collectors.toList());
+
+        //删除整个Record
+        recordService.removeBatchByIds(recordsAll);
+
+        //重新定义一个Record数组
+        List<Record> records = new ArrayList<>();
+
+        //将go（出校申请）中的数据赋值到records（申请记录）中
+        list.stream().map((item)->{
+            Record record = new Record();
+            record.setUsername(item.getUsername());
+            record.setTime(item.getTime());
+            record.setState(item.getState());
+            record.setReject(item.getReject());
+            record.setReason(item.getReason());
+            record.setNotes("");
+            record.setType("出校申请");
+            records.add(record);
+            return records;
+        }).collect(Collectors.toList());
+
+        //将enter（返校申请）中的数据赋值到records（申请记录）中
+        list1.stream().map((item)->{
+            Record record = new Record();
+            record.setUsername(item.getUsername());
+            record.setTime(item.getTime());
+            record.setState(item.getState());
+            record.setReject(item.getReject());
+            record.setReason("");
+            record.setNotes(item.getNotes());
+            record.setType("返校申请");
+            records.add(record);
+            return records;
+        }).collect(Collectors.toList());
+
+        //将records（申请记录）中的数据按照创建时间进行排序
+        records.stream().sorted(Comparator.comparing(Record::getTime).reversed()).collect(Collectors.toList());
+
+        //批量添加
+        recordService.saveBatch(records);
+
+
+        Page<Record> page = new Page<>(pageNum, pageSize);
+        LambdaQueryWrapper<Record> queryWrapper2 = new LambdaQueryWrapper<>();
+        queryWrapper2.orderByDesc(Record::getTime);
+        recordService.page(page, queryWrapper2);
 
         return R.success(page,"查询成功");
 

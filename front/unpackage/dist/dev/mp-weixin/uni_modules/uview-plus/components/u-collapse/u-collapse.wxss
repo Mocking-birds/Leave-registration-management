@@ -24,14 +24,14 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.u-empty.data-v-67836363,
-.u-empty__wrap.data-v-67836363,
-.u-tabs.data-v-67836363,
-.u-tabs__wrapper.data-v-67836363,
-.u-tabs__wrapper__scroll-view-wrapper.data-v-67836363,
-.u-tabs__wrapper__scroll-view.data-v-67836363,
-.u-tabs__wrapper__nav.data-v-67836363,
-.u-tabs__wrapper__nav__line.data-v-67836363 {
+.u-empty.data-v-90f85a74,
+.u-empty__wrap.data-v-90f85a74,
+.u-tabs.data-v-90f85a74,
+.u-tabs__wrapper.data-v-90f85a74,
+.u-tabs__wrapper__scroll-view-wrapper.data-v-90f85a74,
+.u-tabs__wrapper__scroll-view.data-v-90f85a74,
+.u-tabs__wrapper__nav.data-v-90f85a74,
+.u-tabs__wrapper__nav__line.data-v-90f85a74 {
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
@@ -39,32 +39,4 @@
   flex-basis: auto;
   align-items: stretch;
   align-content: flex-start;
-}
-.u-notify.data-v-67836363 {
-  padding: 8px 10px;
-}
-.u-notify__warpper.data-v-67836363 {
-
-  display: flex;
-
-  flex-direction: row;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-}
-.u-notify__warpper__text.data-v-67836363 {
-  font-size: 15px;
-  text-align: center;
-}
-.u-notify--primary.data-v-67836363 {
-  background-color: #3c9cff;
-}
-.u-notify--success.data-v-67836363 {
-  background-color: #5ac725;
-}
-.u-notify--error.data-v-67836363 {
-  background-color: #f56c6c;
-}
-.u-notify--warning.data-v-67836363 {
-  background-color: #f9ae3d;
 }

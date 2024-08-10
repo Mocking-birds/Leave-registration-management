@@ -4,5 +4,25 @@
   "setting": {
     "compileHotReLoad": true
   },
-  "libVersion": "3.5.3"
+  "libVersion": "3.5.3",
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/center/index",
+          "pathName": "pages/center/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/center/index.vue",
+          "pathName": "pages/center/index.vue",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        }
+      ]
+    }
+  }
 }

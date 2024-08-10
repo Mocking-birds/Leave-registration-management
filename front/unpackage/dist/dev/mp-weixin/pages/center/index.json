@@ -1,6 +1,11 @@
 {
   "navigationBarTitleText": "申请信息",
   "usingComponents": {
+    "up-tabs": "../../uni_modules/uview-plus/components/u-tabs/u-tabs",
+    "up-sticky": "../../uni_modules/uview-plus/components/u-sticky/u-sticky",
+    "up-collapse-item": "../../uni_modules/uview-plus/components/u-collapse-item/u-collapse-item",
+    "up-list-item": "../../uni_modules/uview-plus/components/u-list-item/u-list-item",
+    "up-collapse": "../../uni_modules/uview-plus/components/u-collapse/u-collapse",
     "tab-bar": "../../components/TabBar"
   }
 }

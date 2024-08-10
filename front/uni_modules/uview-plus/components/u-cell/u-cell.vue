@@ -152,6 +152,7 @@
 			color: $u-cell-color;
 			// line-height: $u-cell-line-height;
 			align-items: center;
+			height:100px;
 
 			&__content {
 				@include flex(row);

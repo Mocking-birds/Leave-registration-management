@@ -5,6 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import cn.hutool.core.date.DateUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.example.back.entity.Student;
 import org.example.back.entity.User;
 
 import java.util.Date;
@@ -16,6 +17,13 @@ public class TokenUtils {
 
     //创建token
     public static String createToken(User user) {
+        return JWT.create()
+                .withIssuer("admin")
+                .withExpiresAt(DateUtil.offsetMinute(new Date(), EXPIRE_TIME))
+                .sign(Algorithm.HMAC256("admin"));
+    }
+
+    public static String createTokenByStudent(Student student) {
         return JWT.create()
                 .withIssuer("admin")
                 .withExpiresAt(DateUtil.offsetMinute(new Date(), EXPIRE_TIME))

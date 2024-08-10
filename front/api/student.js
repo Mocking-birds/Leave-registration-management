@@ -1,3 +1,5 @@
+import {useStudentStore} from '../store/student.js'
+
 const baseUrl = 'http://localhost:8080/student'
 
 
@@ -10,6 +12,10 @@ export const studentLogin = (form) => {
 			data: form,
 			success: (res) => {
 				console.log(res);
+				if(res.data.status == 0){
+					useStudentStore().setToken(res.data.data.token)
+					useStudentStore().setStudent(res.data.data)
+				}
 				reslove(res.data)
 			}
 		})

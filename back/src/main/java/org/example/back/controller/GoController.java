@@ -60,4 +60,17 @@ public class GoController {
         return R.success(page,"查询成功");
     }
 
+    //查（通过Username）
+    @GetMapping("/get/student")
+    public R getStudent(Integer pageNum ,Integer pageSize,String username) {
+        log.info("pageNum:{},pageSize:{}",pageNum,pageSize);
+        Page page = new Page(pageNum, pageSize);
+        LambdaQueryWrapper<Go> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Go::getUsername,username);
+        queryWrapper.orderByDesc(Go::getTime);
+        goService.page(page, queryWrapper);
+
+        return R.success(page,"查询成功");
+    }
+
 }

@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.example.back.common.R;
 import org.example.back.entity.Student;
 import org.example.back.service.StudentService;
+import org.example.back.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +30,10 @@ public class StudentController {
         } else if (!one.getPassword().equals(student.getPassword())) {
             return R.error("密码错误");
         }
+
+        String token = TokenUtils.createTokenByStudent(student);
+        one.setToken(token);
+        studentService.updateById(one);
 
         return R.success(one,"登录成功");
     }

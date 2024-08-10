@@ -1,5 +1,6 @@
 "use strict";
 const common_vendor = require("../common/vendor.js");
+const store_student = require("../store/student.js");
 const baseUrl = "http://localhost:8080/student";
 const studentLogin = (form) => {
   return new Promise((reslove, reject) => {
@@ -9,6 +10,10 @@ const studentLogin = (form) => {
       data: form,
       success: (res) => {
         console.log(res);
+        if (res.data.status == 0) {
+          store_student.useStudentStore().setToken(res.data.data.token);
+          store_student.useStudentStore().setStudent(res.data.data);
+        }
         reslove(res.data);
       }
     });
