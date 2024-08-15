@@ -6,10 +6,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Mapper;
 import org.example.back.common.R;
 import org.example.back.entity.Student;
+import org.example.back.service.EnterService;
 import org.example.back.service.StudentService;
 import org.example.back.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
 
 @RestController
 @Slf4j
@@ -17,6 +21,9 @@ import org.springframework.web.bind.annotation.*;
 public class StudentController {
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private EnterService enterService;
 
     //登录
     @PostMapping("/login")
@@ -56,7 +63,44 @@ public class StudentController {
     }
 
     //删
-    //改
+
+//    //改(头像)
+    @PostMapping("/avatar")
+    public R avatar(@RequestParam(value = "file", required = false) MultipartFile file,Student student) {
+        log.info("file: {},student: {}",file,student);
+        //非空判断
+        if(file.isEmpty()){
+            return R.error("图片上传失败");
+        }
+
+        //获取上传文件名
+        String originalFilename = file.getOriginalFilename();
+        //防止重名覆盖，系统时间戳+文件后缀名
+        String fileName = System.currentTimeMillis() + "." + originalFilename.substring(originalFilename.lastIndexOf(".")+1);
+
+        //设置保存地址
+        String path = "D:\\Leave-registration-management\\front\\static\\";
+        File dest = new File(path + fileName);
+        //判断文件是否存在，不存在就创建一个
+        if(!dest.getParentFile().exists()){
+            dest.getParentFile().mkdirs();
+        }
+
+        try{
+            //保存到文件夹里
+            file.transferTo(dest);
+
+            student.setAvatar(dest.getAbsolutePath());
+
+            studentService.updateById(student);
+
+
+            return R.success(student,"文件上传成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            return R.error(e.getMessage());
+        }
+    }
 
     //查(id)
     @GetMapping("/{id}")

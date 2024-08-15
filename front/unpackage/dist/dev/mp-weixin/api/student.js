@@ -32,5 +32,18 @@ const studentRegister = (form) => {
     });
   });
 };
+const studentInformation = (id) => {
+  return new Promise((reslove, reject) => {
+    common_vendor.index.request({
+      url: `${baseUrl}/${id}`,
+      method: "get",
+      success: (res) => {
+        console.log(res);
+        reslove(res.data);
+      }
+    });
+  });
+};
+exports.studentInformation = studentInformation;
 exports.studentLogin = studentLogin;
 exports.studentRegister = studentRegister;

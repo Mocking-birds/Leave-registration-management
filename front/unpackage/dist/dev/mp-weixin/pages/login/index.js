@@ -1,7 +1,7 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const api_student = require("../../api/student.js");
-require("../../store/student.js");
+const store_student = require("../../store/student.js");
 if (!Array) {
   const _easycom_up_toast2 = common_vendor.resolveComponent("up-toast");
   const _easycom_up_input2 = common_vendor.resolveComponent("up-input");
@@ -32,6 +32,8 @@ const _sfc_main = {
         type: res.status == 1 ? "error" : "success"
       });
       if (res.status == 0) {
+        store_student.useStudentStore().setStudent(res.data);
+        console.log(store_student.useStudentStore().student);
         common_vendor.index.switchTab({
           url: "/pages/home/index"
         });

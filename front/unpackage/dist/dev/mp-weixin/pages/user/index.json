@@ -1,6 +1,17 @@
 {
   "navigationBarTitleText": "个人中心",
+  "navigationBarBackgroundColor": "#00aaff",
   "usingComponents": {
+    "up-avatar": "../../uni_modules/uview-plus/components/u-avatar/u-avatar",
+    "up-icon": "../../uni_modules/uview-plus/components/u-icon/u-icon",
+    "up-cell": "../../uni_modules/uview-plus/components/u-cell/u-cell",
+    "up-list-item": "../../uni_modules/uview-plus/components/u-list-item/u-list-item",
+    "up-list": "../../uni_modules/uview-plus/components/u-list/u-list",
+    "up-input": "../../uni_modules/uview-plus/components/u-input/u-input",
+    "up-form-item": "../../uni_modules/uview-plus/components/u-form-item/u-form-item",
+    "up-upload": "../../uni_modules/uview-plus/components/u-upload/u-upload",
+    "up-form": "../../uni_modules/uview-plus/components/u-form/u-form",
+    "up-modal": "../../uni_modules/uview-plus/components/u-modal/u-modal",
     "tab-bar": "../../components/TabBar"
   }
 }

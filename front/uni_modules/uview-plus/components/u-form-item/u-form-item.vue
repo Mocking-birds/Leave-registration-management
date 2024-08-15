@@ -14,7 +14,7 @@
 					class="u-form-item__body__left"
 					v-if="required || leftIcon || label"
 					:style="{
-						width: addUnit(labelWidth || parentData.labelWidth),
+						minWidth: addUnit(labelWidth || parentData.labelWidth),
 						marginBottom: parentData.labelPosition === 'left' ? 0 : '5px',
 					}"
 				>

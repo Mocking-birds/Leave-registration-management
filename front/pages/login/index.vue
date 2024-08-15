@@ -4,6 +4,7 @@
 	} from 'vue'
 	
 	import {studentLogin,studentRegister} from '../../api/student.js'
+	import {useStudentStore} from '../../store/student.js'
 
 	//form表单数据
 	let form = ref({})
@@ -22,6 +23,8 @@
 		})
 		
 		if(res.status == 0){
+			useStudentStore().setStudent(res.data)
+			console.log(useStudentStore().student);
 			uni.switchTab({
 				url: '/pages/home/index'
 			})

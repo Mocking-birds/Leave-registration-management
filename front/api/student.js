@@ -36,3 +36,17 @@ export const studentRegister = (form) => {
 		})
 	})
 }
+
+//查询个人信息
+export const studentInformation = (id) => {
+	return new Promise((reslove,reject) => {
+		uni.request({
+			url:`${baseUrl}/${id}`,
+			method:'get',
+			success: (res) => {
+				console.log(res);
+				reslove(res.data)
+			}
+		})
+	})
+}

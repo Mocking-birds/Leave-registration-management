@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -64,11 +65,19 @@ public class GoController {
     @GetMapping("/get/student")
     public R getStudent(Integer pageNum ,Integer pageSize,String username) {
         log.info("pageNum:{},pageSize:{}",pageNum,pageSize);
+        if(pageNum == null || pageNum == 0){
+            LambdaQueryWrapper<Go> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.like(Go::getUsername,username);
+            queryWrapper.orderByDesc(Go::getTime);
+            List<Go> list = goService.list(queryWrapper);
+            return R.success(list,"查询成功");
+        }
+
         Page page = new Page(pageNum, pageSize);
-        LambdaQueryWrapper<Go> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Go::getUsername,username);
-        queryWrapper.orderByDesc(Go::getTime);
-        goService.page(page, queryWrapper);
+        LambdaQueryWrapper<Go> queryWrapper1 = new LambdaQueryWrapper<>();
+        queryWrapper1.eq(Go::getUsername,username);
+        queryWrapper1.orderByDesc(Go::getTime);
+        goService.page(page, queryWrapper1);
 
         return R.success(page,"查询成功");
     }

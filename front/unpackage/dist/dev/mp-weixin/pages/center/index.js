@@ -30,8 +30,6 @@ const _sfc_main = {
       { name: "已通过" },
       { name: "已驳回" }
     ]);
-    let pageNum = common_vendor.ref(1);
-    let pageSize = common_vendor.ref(5);
     let allList = common_vendor.ref([]);
     let goList = common_vendor.ref([]);
     let enterList = common_vendor.ref([]);
@@ -43,14 +41,14 @@ const _sfc_main = {
       tabName.value = index.name;
     };
     let getGoData = async () => {
-      const res = await api_go.getGo(pageNum.value, pageSize.value);
+      const res = await api_go.getGo();
       console.log(res);
-      allList.value = res.data.records;
+      allList.value = res.data;
       allList.value.forEach((item) => item.time = item.time.replace("T", " "));
       goList.value = allList.value.filter((item) => item.type == "出校申请");
       enterList.value = allList.value.filter((item) => item.type == "返校申请");
       noList.value = allList.value.filter((item) => item.state == "未审核");
-      passList.value = allList.value.filter((item) => item.state == "已审核");
+      passList.value = allList.value.filter((item) => item.state == "已通过");
       noPassList.value = allList.value.filter((item) => item.state == "已驳回");
     };
     getGoData();
@@ -107,17 +105,17 @@ const _sfc_main = {
               };
             }),
             b: common_vendor.o(_ctx.open, index),
-            c: "52ff2a72-4-" + i0 + "," + ("52ff2a72-3-" + i0),
+            c: "3edf87c6-4-" + i0 + "," + ("3edf87c6-3-" + i0),
             d: common_vendor.p({
               title: `${item.type}----${item.state}----${item.time}`
             }),
             e: index,
-            f: "52ff2a72-3-" + i0 + ",52ff2a72-2"
+            f: "3edf87c6-3-" + i0 + ",3edf87c6-2"
           };
         })
       };
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "D:/Leave-registration-management/front/pages/center/index.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-3edf87c6"], ["__file", "D:/Leave-registration-management/front/pages/center/index.vue"]]);
 wx.createPage(MiniProgramPage);

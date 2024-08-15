@@ -100,7 +100,7 @@ public class RecordController {
 
     //查(通过username)
     @GetMapping("/get/student")
-    public R getRecordByUni(Integer pageSize, Integer pageNum,String username) {
+    public R getRecordByUni(String username) {
 
         //获取出校申请的值（指定username）
         LambdaQueryWrapper<Go> queryWrapper = new LambdaQueryWrapper<>();
@@ -118,12 +118,15 @@ public class RecordController {
 
         //获取当前Record（出入校申请记录）
         List<Record> recordsAll = recordService.list();
-        recordsAll.stream().map((item)->{
-            return item;
-        }).collect(Collectors.toList());
+        if(!recordsAll.isEmpty()){
+            recordsAll.stream().map((item)->{
+                return item;
+            }).collect(Collectors.toList());
 
-        //删除整个Record
-        recordService.removeBatchByIds(recordsAll);
+            //删除整个Record
+            recordService.removeBatchByIds(recordsAll);
+        }
+
 
         //重新定义一个Record数组
         List<Record> records = new ArrayList<>();
@@ -162,13 +165,11 @@ public class RecordController {
         //批量添加
         recordService.saveBatch(records);
 
-
-        Page<Record> page = new Page<>(pageNum, pageSize);
         LambdaQueryWrapper<Record> queryWrapper2 = new LambdaQueryWrapper<>();
         queryWrapper2.orderByDesc(Record::getTime);
-        recordService.page(page, queryWrapper2);
+        List<Record> list2 = recordService.list(queryWrapper2);
 
-        return R.success(page,"查询成功");
+        return R.success(list2,"查询成功");
 
     }
 }

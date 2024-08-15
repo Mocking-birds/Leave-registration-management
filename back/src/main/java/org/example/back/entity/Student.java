@@ -10,4 +10,5 @@ public class Student {
     private String username;
     private String password;
     private String token;
+    private String avatar;
 }

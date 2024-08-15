@@ -13,12 +13,6 @@ let tabList = ref([
 	{name: '已驳回'}
 ])
 
-//当前所在页数
-let pageNum = ref(1)
-
-//每页的公告条数
-let pageSize = ref(5)
-
 //全部
 let allList = ref([])
 
@@ -48,16 +42,16 @@ const changeTab = (index) => {
 
 //获得全部的申请信息
 let getGoData = async () => {
-	const res = await getGo(pageNum.value,pageSize.value)
+	const res = await getGo()
 	console.log(res);
-	allList.value = res.data.records
+	allList.value = res.data
 	allList.value.forEach(item => item.time = item.time.replace('T',' '))
 	
 	
 	goList.value = allList.value.filter(item => item.type == '出校申请')
 	enterList.value = allList.value.filter(item => item.type == '返校申请')
 	noList.value = allList.value.filter(item => item.state == '未审核')
-	passList.value = allList.value.filter(item => item.state == '已审核')
+	passList.value = allList.value.filter(item => item.state == '已通过')
 	noPassList.value = allList.value.filter(item => item.state == '已驳回')
 }
 
@@ -107,27 +101,34 @@ let getText = (item) => {
 </script>
 
 <template>
-	<up-sticky bgColor="#fff">
-	    <up-tabs :list="tabList" @click="changeTab"></up-tabs>
-	</up-sticky>
-	
-	<up-collapse>
-		<up-list-item
-			v-for="(item,index) in replaceTab()"
-			:key = "index"
-		>
-			<up-collapse-item
-				:title="`${item.type}----${item.state}----${item.time}`"
-				@click = "open"
+	<view class="all">
+		<up-sticky bgColor="#fff">
+		    <up-tabs :list="tabList" @click="changeTab"></up-tabs>
+		</up-sticky>
+		
+		<up-collapse>
+			<up-list-item
+				v-for="(item,index) in replaceTab()"
+				:key = "index"
 			>
-				<view v-for="(value,key) in getText(item)" :key = "key">{{value[0]}}  :   {{value[1]}}</view>
-			</up-collapse-item>
-		</up-list-item>
-	</up-collapse>
-
+				<up-collapse-item
+					:title="`${item.type}----${item.state}----${item.time}`"
+					@click = "open"
+				>
+					<view v-for="(value,key) in getText(item)" :key = "key">{{value[0]}}  :   {{value[1]}}</view>
+				</up-collapse-item>
+			</up-list-item>
+		</up-collapse>
+		
+		
+		<TabBar></TabBar>
+	</view>
 	
-	<TabBar></TabBar>
 </template>
 
 <style scoped>
+	.all{
+		height: 100vh;
+		background:#f1f1f1;
+	}
 </style>
