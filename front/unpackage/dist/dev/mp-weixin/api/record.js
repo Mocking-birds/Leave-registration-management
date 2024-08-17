@@ -1,13 +1,17 @@
 "use strict";
 const common_vendor = require("../common/vendor.js");
 const store_student = require("../store/student.js");
-const baseUrl = "http://localhost:8080/go";
-const addGo = (form) => {
+const baseUrl = "http://localhost:8080/record";
+const getRecord = (pageNum, pageSize) => {
   return new Promise((reslove, reject) => {
     common_vendor.index.request({
-      url: `${baseUrl}/add`,
-      method: "post",
-      data: form,
+      url: `${baseUrl}/get/student`,
+      method: "get",
+      data: {
+        pageNum,
+        pageSize,
+        username: store_student.useStudentStore().student.username
+      },
       header: {
         "Authorization": store_student.useStudentStore().token
       },
@@ -17,4 +21,4 @@ const addGo = (form) => {
     });
   });
 };
-exports.addGo = addGo;
+exports.getRecord = getRecord;

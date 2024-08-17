@@ -1,7 +1,7 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const store_student = require("../../store/student.js");
-const api_go = require("../../api/go.js");
+const api_record = require("../../api/record.js");
 const api_student = require("../../api/student.js");
 if (!Array) {
   const _easycom_up_avatar2 = common_vendor.resolveComponent("up-avatar");
@@ -67,14 +67,16 @@ const _sfc_main = {
       formData.value = store_student.useStudentStore().student;
       formData.value.password = "";
       avatarList.value = [{ url: src.value }];
-      let res = await api_go.getGo(0, 0);
+      let res = await api_record.getRecord(0, 0);
       allList.value = res.data;
       allList.value.forEach((item) => item.time = item.time.replace("T", " "));
       goList.value = allList.value.filter((item) => item.type == "出校申请");
       enterList.value = allList.value.filter((item) => item.type == "返校申请");
       passList.value = allList.value.filter((item) => item.type == "已通过");
     };
-    getData();
+    common_vendor.onShow(() => {
+      getData();
+    });
     const cancel = () => {
       informationShow.value = false;
       getData();

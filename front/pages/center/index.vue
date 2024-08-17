@@ -1,7 +1,8 @@
 <script setup>
 import TabBar from '../../components/TabBar.vue'
 import {ref} from 'vue'
-import {getGo} from '../../api/go.js'
+import {getRecord} from '../../api/record.js'
+import { onShow } from '@dcloudio/uni-app'
 
 //顶部导航栏列表
 let tabList = ref([
@@ -42,7 +43,7 @@ const changeTab = (index) => {
 
 //获得全部的申请信息
 let getGoData = async () => {
-	const res = await getGo()
+	const res = await getRecord()
 	console.log(res);
 	allList.value = res.data
 	allList.value.forEach(item => item.time = item.time.replace('T',' '))
@@ -55,7 +56,11 @@ let getGoData = async () => {
 	noPassList.value = allList.value.filter(item => item.state == '已驳回')
 }
 
-getGoData()
+// 监听页面显示，页面每次出现在屏幕上都触发(必须使用他，
+//因为直接调用方法的话当切换其他页面后再切换回来的话不会再次调用)
+onShow(() => {
+	getGoData()
+})
 
 //通过顶部tab判断渲染哪个数组
 let replaceTab = () => {
@@ -74,8 +79,8 @@ let replaceTab = () => {
 	}
 }
 
+//获取折叠面板下的数据
 let getText = (item) => {
-	
 	let text = {
 		"姓名": item.username,
 		"审核状态": item.state,
@@ -130,5 +135,8 @@ let getText = (item) => {
 	.all{
 		height: 100vh;
 		background:#f1f1f1;
+	}
+	::v-deep .u-collapse{
+		background-color: #ffffff;
 	}
 </style>

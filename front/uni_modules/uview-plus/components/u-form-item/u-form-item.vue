@@ -191,7 +191,7 @@
 
 		&__body {
 			@include flex;
-			padding: 10px 0;
+			padding: 10px 10px;
 
 			&__left {
 				@include flex;

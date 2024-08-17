@@ -1,8 +1,8 @@
 "use strict";
 const common_vendor = require("../common/vendor.js");
 const store_student = require("../store/student.js");
-const baseUrl = "http://localhost:8080/go";
-const addGo = (form) => {
+const baseUrl = "http://localhost:8080/enter";
+const addEnter = (form) => {
   return new Promise((reslove, reject) => {
     common_vendor.index.request({
       url: `${baseUrl}/add`,
@@ -17,4 +17,4 @@ const addGo = (form) => {
     });
   });
 };
-exports.addGo = addGo;
+exports.addEnter = addEnter;

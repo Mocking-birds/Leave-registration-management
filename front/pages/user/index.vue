@@ -2,8 +2,9 @@
 	import TabBar from '../../components/TabBar.vue'
 	import {ref} from 'vue'
 	import {useStudentStore} from '../../store/student.js'
-	import {getGo} from '../../api/go.js'
+	import {getRecord} from '../../api/record.js'
 	import {studentInformation} from '../../api/student.js'
+	import { onShow } from '@dcloudio/uni-app'
 	
 	//头像
 	let src = ref()
@@ -71,7 +72,7 @@
 		formData.value.password = ''
 		avatarList.value = [{url:src.value}]
 		
-		let res = await getGo(0,0)
+		let res = await getRecord(0,0)
 		allList.value = res.data
 		allList.value.forEach(item => item.time = item.time.replace('T',' '))
 		goList.value = allList.value.filter(item => item.type == '出校申请')
@@ -80,8 +81,11 @@
 		
 	}
 	
-	getData()
-	
+	// 监听页面显示，页面每次出现在屏幕上都触发(必须使用他，
+	//因为直接调用方法的话当切换其他页面后再切换回来的话不会再次调用)
+	onShow(() => {
+		getData()
+	})
 	
 	//模态框点击取消
 	const cancel = () => {

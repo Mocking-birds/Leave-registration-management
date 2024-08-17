@@ -2,9 +2,9 @@
 
 import {useStudentStore} from '../store/student.js'
 
-const baseUrl = 'http://localhost:8080/go'
+const baseUrl = 'http://localhost:8080/enter'
 
-export const addGo = (form) => {
+export const addEnter = (form) => {
 	return new Promise((reslove,reject) => {
 		uni.request({
 			url:`${baseUrl}/add`,

@@ -1,6 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
-const api_go = require("../../api/go.js");
+const api_record = require("../../api/record.js");
 require("../../store/student.js");
 if (!Array) {
   const _easycom_up_tabs2 = common_vendor.resolveComponent("up-tabs");
@@ -41,7 +41,7 @@ const _sfc_main = {
       tabName.value = index.name;
     };
     let getGoData = async () => {
-      const res = await api_go.getGo();
+      const res = await api_record.getRecord();
       console.log(res);
       allList.value = res.data;
       allList.value.forEach((item) => item.time = item.time.replace("T", " "));
@@ -51,7 +51,9 @@ const _sfc_main = {
       passList.value = allList.value.filter((item) => item.state == "已通过");
       noPassList.value = allList.value.filter((item) => item.state == "已驳回");
     };
-    getGoData();
+    common_vendor.onShow(() => {
+      getGoData();
+    });
     let replaceTab = () => {
       if (tabName.value == "全部") {
         return allList.value;
