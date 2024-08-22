@@ -2,8 +2,8 @@ package org.example.back.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Mapper;
 import org.example.back.common.R;
 import org.example.back.entity.Student;
 import org.example.back.service.EnterService;
@@ -62,9 +62,15 @@ public class StudentController {
         return R.success(null,"注册成功");
     }
 
-    //删
+    //删(id)
+    @DeleteMapping("/delete")
+    public R delete(Integer id) {
+        studentService.removeById(id);
 
-//    //改(头像)
+        return R.success(null,"删除成功");
+    }
+
+    //改(头像)
     @PostMapping("/avatar")
     public R avatar(@RequestParam(value = "file", required = false) MultipartFile file,Student student) {
         log.info("file: {},student: {}",file,student);
@@ -107,6 +113,19 @@ public class StudentController {
     public R get(@PathVariable Integer id) {
         Student student = studentService.getById(id);
         return R.success(student,"查询成功");
+    }
+
+    //查（分页）
+    @GetMapping("/get")
+    public R getStudent(Integer pageNum, Integer pageSize) {
+        Page<Student> page = new Page<>(pageNum, pageSize);
+
+        LambdaQueryWrapper<Student> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.orderByDesc(Student::getId);
+
+        studentService.page(page, queryWrapper);
+
+        return R.success(page,"查询成功");
     }
 
 }

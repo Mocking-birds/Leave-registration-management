@@ -74,7 +74,6 @@
 		
 		let res = await getRecord(0,0)
 		allList.value = res.data
-		allList.value.forEach(item => item.time = item.time.replace('T',' '))
 		goList.value = allList.value.filter(item => item.type == '出校申请')
 		enterList.value = allList.value.filter(item => item.type == '返校申请')
 		passList.value = allList.value.filter(item => item.type == '已通过')

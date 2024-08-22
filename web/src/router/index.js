@@ -6,7 +6,7 @@ import RecordPage from '@/views/record/RecordPage.vue';
 import NoticePage from '@/views/notice/NoticePage.vue';
 import GoExaminePage from '@/views/examine/GoExaminePage.vue';
 import EnterExaminePage from '@/views/examine/EnterExaminePage.vue';
-import UserPage from '@/views/user/UserPage.vue';
+import StudentPage from '@/views/student/StudentPage.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,13 +23,13 @@ const router = createRouter({
           next()
         }
       },
-      redirect:'/user',
+      redirect:'/student',
       children: [
         {path:'/notice',component:NoticePage},
         {path:'/record',component:RecordPage},
         {path:'/examine/go',component:GoExaminePage},
         {path:'/examine/enter',component:EnterExaminePage},
-        {path:'/user',component:UserPage}
+        {path:'/student',component:StudentPage}
       ]
     }
       ]
